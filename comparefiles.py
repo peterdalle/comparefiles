@@ -22,7 +22,7 @@ def main(fileextension: str, directory=""):
         print("Found {} matches".format(len(matchedfiles)))
 
         # Display list of identical files.
-        displayidenticalfiles(matchedfiles, fullfilenames=False, groupfiles=True)
+        displayidenticalfiles(matchedfiles, fullfilenames=True, groupfiles=True)
     else:
         # Couldn't parse directory.
         print("Directory not found:", directory)
