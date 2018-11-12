@@ -9,8 +9,10 @@ Note: the program is very slow when there is a large number of files (due to `n 
 ## Usage
 
 ```bash
-$ python comparefiles.py [file extension]
+$ python comparefiles.py [file extension] [folder]
 ```
+
+If folder is not set, the current folders is searched.
 
 ## Example
 
@@ -20,7 +22,7 @@ The following will search for all `.sav` files in current directory and all subd
 $ python comparefiles.py .sav
 ```
 
-Which will output the following:
+Which outputs the following:
 
 ```
 Searched 29 .sav file(s) in all subdirectories
@@ -32,4 +34,10 @@ Found 5 matches
 
 897f385d92d0bd9a73831b37055d90b0 Another_copy_1.sav
 897f385d92d0bd9a73831b37055d90b0 Another_copy_2.sav
+```
+
+Search for all files (`.`) in the directory `C:\sites` and all its subdirectories:
+
+```bash
+$ python comparefiles.py . C:\sites
 ```
