@@ -4,7 +4,7 @@ Search for identical files of a given file extension in the current directory an
 
 The program calculates a MD5 hash for each file. Files that have an identical hash are then presented on the screen.
 
-Note: the program is very slow for a large number of files (due to `n * n` lookups).
+Note: the program is very slow when there is a large number of files (due to `n * n` lookups).
 
 ## Usage
 
