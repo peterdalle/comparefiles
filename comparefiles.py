@@ -34,7 +34,7 @@ def parsedirectory(directory: str) -> str:
     else:
         # Check if valid directory.
         if os.path.exists(directory):
-            return(os.path.abspath(directory))
+            return(os.path.join(directory))
     return("")
 
 def getallfiles(fileextension: str, directory: str, recursive=True) -> (list, str):
