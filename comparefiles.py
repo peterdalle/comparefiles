@@ -82,7 +82,7 @@ def removeduplicatedicts(lst: list) -> list:
     return([dict(t) for t in {tuple(d.items()) for d in lst}])
 
 def countuniquehashes(lst: list) -> int:
-    """Count the number of unique hashes."""
+    """Count the number of unique hashes in list with dictionaries."""
     return(len(set([(lambda k: k["md5"])(k) for k in lst])))
 
 def displayidenticalfiles(files: list, fullfilenames=True, groupfiles=True):
