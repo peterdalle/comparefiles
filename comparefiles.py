@@ -62,8 +62,8 @@ def md5(filename: str) -> str:
     md5hash = hashlib.md5()
     try:
         with open(filename, "rb") as f:
-                for chunk in iter(lambda: f.read(4096), b""):
-                        md5hash.update(chunk)
+            for chunk in iter(lambda: f.read(4096), b""):
+                md5hash.update(chunk)
     except FileNotFoundError:
         print("Couldn't find {}".format(filename))
     return md5hash.hexdigest()
