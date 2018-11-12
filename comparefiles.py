@@ -19,7 +19,7 @@ def main(fileextension: str, directory=""):
 
         # Compare all files and get list of identical files.
         matchedfiles = findidentical(files)
-        print("Found {} matches".format(len(matchedfiles)))
+        print("Found {} matches across {} files".format(countuniquehashes(matchedfiles), len(matchedfiles)))
 
         # Display list of identical files.
         displayidenticalfiles(matchedfiles, fullfilenames=True, groupfiles=True)
@@ -80,6 +80,10 @@ def findidentical(files: list) -> int:
 def removeduplicatedicts(lst: list) -> list:
     """Remove duplicate dictionaries from a list."""
     return([dict(t) for t in {tuple(d.items()) for d in lst}])
+
+def countuniquehashes(lst: list) -> int:
+    """Count the number of unique hashes."""
+    return(len(set([(lambda k: k["md5"])(k) for k in lst])))
 
 def displayidenticalfiles(files: list, fullfilenames=True, groupfiles=True):
     """Display files that are identical."""
