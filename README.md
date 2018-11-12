@@ -9,7 +9,7 @@ Note: the program is very slow when there is a large number of files (due to `n 
 ## Usage
 
 ```bash
-$ python comparefiles [file extension]
+$ python comparefiles.py [file extension]
 ```
 
 ## Example
@@ -17,7 +17,7 @@ $ python comparefiles [file extension]
 The following will search for all `.sav` files in current directory and all subdirectories.
 
 ```bash
-$ python comparefiles .sav
+$ python comparefiles.py .sav
 ```
 
 Which will output the following:
