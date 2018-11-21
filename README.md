@@ -25,8 +25,8 @@ $ python comparefiles.py .py
 Which outputs the following:
 
 ```
-Searching C:\Users\Foo\Code...
-Searched 557 .py file(s) in all subdirectories
+Searching .py in C:\Users\Foo\Code...
+Searched 557 file(s) in all subdirectories
 Found 3 matches across 9 files
 
 29a6a1e050bd42fe24cd17b138d4b08d  \trackthenews\build\lib\trackthenews\__init__.py
