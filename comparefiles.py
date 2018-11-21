@@ -1,4 +1,4 @@
-# encoding: utf-8
+cd # encoding: utf-8
 import os
 import sys
 import hashlib
@@ -8,14 +8,14 @@ def main(fileextension: str, directory=""):
     # Parse directory.
     parseddirectory = parsedirectory(directory)
     if parseddirectory != "":
-        print("Searching {}...".format(parseddirectory))
+        print("Searching {} in {}...".format(fileextension, parseddirectory))
 
         # Get list of all files.
         files, searchscope = getallfiles(fileextension, parseddirectory, recursive=True)
         if searchscope == "subfolders":
-            print("Searched {} {} file(s) in all subdirectories".format(len(files), fileextension))
+            print("Searched {} file(s) in all subdirectories".format(len(files)))
         else:
-            print("Searched {} {} file(s) in current directory".format(len(files), fileextension))
+            print("Searched {} file(s) in current directory".format(len(files)))
 
         # Compare all files and get list of identical files.
         matchedfiles = findidentical(files)
@@ -65,7 +65,7 @@ def md5(filename: str) -> str:
             for chunk in iter(lambda: f.read(4096), b""):
                 md5hash.update(chunk)
     except FileNotFoundError:
-        print("Couldn't find {}".format(filename))
+        print("Couldn't read {}".format(filename))
     return md5hash.hexdigest()
 
 def findidentical(files: list) -> int:
