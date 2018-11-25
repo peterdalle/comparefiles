@@ -86,9 +86,9 @@ def remove_duplicate_dicts(lst: list) -> list:
     """Remove duplicate dictionaries from a list."""
     return([dict(t) for t in {tuple(d.items()) for d in lst}])
 
-def count_unique_hashes(lst: list) -> int:
+def count_unique_hashes(lst: list, key="md5") -> int:
     """Count the number of unique hashes in list with dictionaries."""
-    return(len(set([(lambda k: k["md5"])(k) for k in lst])))
+    return(len(set([(lambda k: k[key])(k) for k in lst])))
 
 def display_identical_files(files: list, fullfilenames=True, groupfiles=True):
     """Display files that are identical."""
