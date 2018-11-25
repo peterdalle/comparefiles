@@ -44,7 +44,7 @@ def get_all_files(fileextension: str, directory: str, recursive=True) -> (list, 
         searchscope = "subfolders"
         for rootdir, subdirs, files in os.walk(directory):
             for file in files:
-                if fileextension in file:
+                if fileextension.lower() in file.lower():
                     filename = os.path.join(rootdir, file)
                     l.append({"filename": file, 
 		                    	"md5": md5(filename), 
@@ -54,7 +54,7 @@ def get_all_files(fileextension: str, directory: str, recursive=True) -> (list, 
         # Search files only in current directory.
         searchscope = "folder"
         for file in os.listdir(directory):          
-            if fileextension in file:
+            if fileextension.lower() in file.lower():
                 filename = os.path.join(directory, file)
                 l.append({"filename": file, 
                 	"md5": md5(filename), 
