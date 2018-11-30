@@ -73,7 +73,7 @@ def md5(filename: str) -> str:
         print("Couldn't read {}".format(filename))
     return md5hash.hexdigest()
 
-def find_identical_files(files: list) -> int:
+def find_identical_files(files: list) -> list:
     """Get a list of all files where their MD5 hashes match. This is slow (n*n), but easy to do..."""
     l = []
     for currentfile in files:
