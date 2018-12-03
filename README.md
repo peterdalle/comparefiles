@@ -1,33 +1,43 @@
 # comparefiles
 
-Search for identical files of a given file extension in the current directory and all its subdirectories.
+comparefiles offers a practical command line interface to search for identical files or similar files in a directory and all its subdirectories.
 
-The program calculates a MD5 hash for each file. Files that have an identical hash are then presented on the screen.
+## How it works
 
-Note: the program is very slow when there is a large number of files (due to `n * n * 2` lookups).
+When searching for identical files, the program calculates a MD5 hash for each file. Files that have an identical hash are then presented on the screen. This works for all types of files.
+
+When searching for similar files, the program compares the file content across files using [Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance). Searching for similar files is only available for text files.
 
 ## Usage
 
 ```bash
-$ python comparefiles.py [file extension] [folder]
+$ comparefiles.py [-h] [--sort] [--ext extension] [--dir directory]
+                       [--algorithm name] [--similar] [--identical]
+                       [--version]
 ```
 
-If folder is not set, the current folders is searched.
+## Dependencies
 
-## Example
+Package [FuzzyWuzzy](https://github.com/seatgeek/fuzzywuzzy) is used to calculate the Levenshtein distance and package [python-Levenshtein](https://github.com/ztane/python-Levenshtein/) is used to speed up the calculation using C. Install them with pip:
 
-The following will search for all `.py` files in current directory and all subdirectories.
+```
+pip install fuzzywuzzy 
+pip install python-Levenshtein
+```
+
+## Examples
+
+### Find identical files
+
+The following will search for all identical (`--identical`) .py files (`--ext .py`) in current directory and all subdirectories.
 
 ```bash
-$ python comparefiles.py .py
+$ python comparefiles.py --identical --ext .py
 ```
 
-Which outputs the following:
-
 ```
-Searching .py in C:\Users\Foo\Code...
-Searched 557 file(s) in all subdirectories
-Found 3 matches across 9 files
+Searching for identical .py files in C:\Foo\Bar...
+Identified 47 files
 
 29a6a1e050bd42fe24cd17b138d4b08d  \trackthenews\build\lib\trackthenews\__init__.py
 29a6a1e050bd42fe24cd17b138d4b08d  \trackthenews\trackthenews\__init__.py
@@ -40,10 +50,48 @@ d41d8cd98f00b204e9800998ecf8427e  \newsdiffs\website\frontend\management\command
 d41d8cd98f00b204e9800998ecf8427e  \newsdiffs\website\frontend\management\__init__.py
 d41d8cd98f00b204e9800998ecf8427e  \newsdiffs\website\frontend\__init__.py
 d41d8cd98f00b204e9800998ecf8427e  \newsdiffs\website\frontend\migrations\__init__.py
+
+Found 3 matches across 9 files
 ```
 
-Search for all files (`.`) in the directory `C:\sites` and all its subdirectories:
+### Compare file similarity
+
+The following will compare similarity (`--similar`) for all text files (`--ext .txt`) in directory C:\Foo and all its subdirectories (`--dir C:\Foo`), and sort the results so that most similar are at the top (`--sort`):
 
 ```bash
-$ python comparefiles.py . C:\sites
+$ python comparefiles.py --similar --ext .txt --dir C:\Foo --sort
 ```
+
+```
+Searching for similar .txt files in C:\Foo...
+Identified 4 files
+
+100%  \file3.txt                            \file4.txt
+98%   \file1.txt                            \file2.txt
+69%   \file2.txt                            \file3.txt
+69%   \file2.txt                            \file4.txt
+67%   \file1.txt                            \file3.txt
+67%   \file1.txt                            \file4.txt
+
+Compared 4 files (6 combinations), similarity range: 67-100% (average 78%)
+```
+
+Use the `--help` for more arguments and instructions in how to change similarity algorithm.
+
+
+## Number of comparisons
+
+Note that the number of comparisons can quickly grow as the number of files checked for similarity increases.
+
+![](number-of-comparisons.png)
+
+<!-- 
+# R code to plot combinatorics graph.
+df <- data.frame(items=1:1000, combinations=choose(1:1000, 2))
+ggplot2::ggplot(df, aes(items, combinations)) + 
+    geom_line() + 
+    labs(title="Number of file comparisons",
+         x="Number of text documents", 
+         y="Combinations") + 
+    scale_y_continuous(labels = scales::comma)
+-->
